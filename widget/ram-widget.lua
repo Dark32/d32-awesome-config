@@ -1,79 +1,70 @@
 local awful = require("awful")
 local watch = require("awful.widget.watch")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
+local gears = require("gears")
 
---- Main ram widget shown on wibar
+local ram_progressbar =  wibox.widget {
+    max_value     = 1,
+    value         = 0.5,
+    forced_height = 20,
+    forced_width  = 75,
+    paddings      = 3,
+    border_width  = 2,
+    border_color  = beautiful.border_color,
+    widget        = wibox.widget.progressbar,
+    shape         = gears.shape.powerline,
+    bar_shape     = gears.shape.powerline,
+  }
+  local ram_text = wibox.widget {
+    text   = '50%',
+    widget = wibox.widget.textbox,
+  }
+  
+local swap_progressbar =  wibox.widget {
+    max_value     = 1,
+    value         = 0.5,
+    forced_height = 20,
+    forced_width  = 75,
+    paddings      = 3,
+    border_width  = 2,
+    border_color  = beautiful.border_color,
+    widget        = wibox.widget.progressbar,
+    shape         = gears.shape.powerline,
+    bar_shape     = gears.shape.powerline,
+  }
+  local swap_text = wibox.widget {
+    text   = '50%',
+    widget = wibox.widget.textbox,
+  }
+  
 local ramgraph_widget = wibox.widget {
-    border_width = 0,
-    colors = {
-        '#74aeab', '#26403f'
-    },
-    display_labels = false,
-    forced_width = 25,
-    widget = wibox.widget.piechart
+  layout = wibox.layout.fixed.horizontal,
+ {
+    ram_progressbar,
+    ram_text,
+     horizontal_offset = 5,
+    layout = wibox.layout.stack,
+  },
+  {
+    swap_progressbar,
+    swap_text,
+    layout = wibox.layout.stack,
+  },
 }
-
---- Widget which is shown when user clicks on the ram widget
-local w = wibox {
-    height = 200,
-    width = 400,
-    ontop = true,
-    screen = mouse.screen,
-    expand = true,
-    bg = '#1e252c',
-    max_widget_size = 500
-}
-
-w:setup {
-    border_width = 0,
-    colors = {
-        '#5ea19d',
-        '#55918e',
-        '#4b817e',
-    },
-    display_labels = false,
-    forced_width = 25,
-    id = 'pie',
-    widget = wibox.widget.piechart
-}
-
-local total, used, free, shared, buff_cache, available, total_swap, used_swap, free_swap
-
-local function getPercentage(value)
-    return math.floor(value / (total+total_swap) * 100 + 0.5) .. '%'
-end
-
 watch('bash -c "free | grep -z Mem.*Swap.*"', 1,
     function(widget, stdout, stderr, exitreason, exitcode)
         total, used, free, shared, buff_cache, available, total_swap, used_swap, free_swap =
             stdout:match('(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*Swap:%s*(%d+)%s*(%d+)%s*(%d+)')
+        local ram = used/total
+        local swap = used_swap/total_swap
+        ram_text.text = string.format("MEM %d%%", math.floor(100 * ram))
+        ram_progressbar.value = ram
+        swap_text.text = string.format("SWAP %d%%", math.floor(100 * swap))
+        swap_progressbar.value = swap
+--        widget.data = { used, total-used } widget.data = { used, total-used }
 
-        widget.data = { used, total-used } widget.data = { used, total-used }
-
-        if w.visible then
-            w.pie.data_list = {
-                {'used ' .. getPercentage(used + used_swap), used + used_swap},
-                {'free ' .. getPercentage(free + free_swap), free + free_swap},
-                {'buff_cache ' .. getPercentage(buff_cache), buff_cache}
-            }
-        end
     end,
     ramgraph_widget
 )
-
-ramgraph_widget:buttons(
-    awful.util.table.join(
-        awful.button({}, 1, function()
-            awful.placement.top_right(w, { margins = {top = 25, right = 10}})
-            w.pie.data_list = {
-                {'used ' .. getPercentage(used + used_swap), used + used_swap},
-                {'free ' .. getPercentage(free + free_swap), free + free_swap},
-                {'buff_cache ' .. getPercentage(buff_cache), buff_cache}
-            }
-            w.pie.display_labels = true
-            w.visible = not w.visible
-        end)
-    )
-)
-
 return ramgraph_widget

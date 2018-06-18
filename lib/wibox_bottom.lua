@@ -1,8 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local cpu_widget = require("widget.cpu-widget")
-local ram_widget = require("widget.ram-widget")
-local bat_widget = require("widget.batteryarc")
+local ram_widget = require('widget.ram-widget')
+local cpu_widget = require('widget.cpu-widget')
 
 local taglist_buttons = awful.util.table.join(
   awful.button({ }, 1, function(t) t:view_only() end),
@@ -37,20 +36,16 @@ return function(s)
     layout = wibox.layout.align.horizontal,
     { -- Left widgets
       layout = wibox.layout.fixed.horizontal,
-      --mylauncher,
       s.mytaglist,
       s.text_mode,
       s.mypromptbox,
     },
     {layout = wibox.layout.fixed.horizontal,},
-    --s.mytasklist, -- Middle widget
     { -- Right widgets
       layout = wibox.layout.fixed.horizontal,
       mykeyboardlayout,
-      bat_widget,
+      cpu_widget,
       ram_widget,
-      cpu_widget,   
-      
       mytextclock,      
       wibox.widget.systray(),
       s.mylayoutbox,
