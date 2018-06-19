@@ -1,3 +1,6 @@
+-- Имя темы
+local theme_name = "dark32"
+
 -- Стандартные библиотеки
 local gears = require("gears")
 local awful = require("awful")
@@ -193,12 +196,12 @@ s.quake = lain.util.quake({
     -- Each screen has its own tag table.
     awful.tag({ "1: ", "2: ", "3: ", "4: ", "5: ", "6: ", "7: ", "8: ", "9: " ,"10: "}, s, awful.layout.layouts[1])
 
-    
+
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
     -- Create the wibox
      s.wibox_bottom =  require("lib.wibox_bottom")(s)
-  
+
     s.wibox_tasklist= awful.wibar({ position = "top", screen = s })
     s.wibox_tasklist:setup {
       layout = wibox.layout.flex.horizontal,
@@ -214,7 +217,6 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
-require("lib.globalkey")
 
 clientkeys = require("lib.clientkeys")
 
@@ -273,9 +275,9 @@ client.connect_signal("request::titlebars", function(c)
           c:raise()
           --awful.mouse.client.resize(c)
         end)
-      
+
     )
-    
+
     awful.titlebar(c) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
@@ -290,7 +292,7 @@ client.connect_signal("request::titlebars", function(c)
             buttons = buttons,
             layout  = wibox.layout.flex.horizontal
         },
-        
+
         { -- Right
             awful.titlebar.widget.floatingbutton (c),
             --awful.titlebar.widget.maximizedbutton(c),
@@ -301,7 +303,7 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-    
+
   end)
 
 -- Enable sloppy focus, so that focus follows mouse.
@@ -315,3 +317,5 @@ client.connect_signal("request::titlebars", function(c)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+local name = require("themes."..theme_name..".rc")
