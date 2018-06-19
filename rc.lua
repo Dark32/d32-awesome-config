@@ -1,20 +1,12 @@
--- Имя темы
 local theme_name = "dark32"
-
--- Стандартные библиотеки
+local autor = require("themes.selector")("dark32")
 local gears = require("gears")
 local awful = require("awful")
---require("awful.autofocus")
--- Виджеты и слои
 local wibox = require("wibox")
--- Темы
 local beautiful = require("beautiful")
--- Оповещение
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
--- Дополнительные возможности
 local lain = require("lain")
--- мои либы
 require("lib.function")
 -------------------------------------------------------------------------------
 --Константы
@@ -27,7 +19,8 @@ os.setlocale(os.getenv("LANG"))
 -------------------------------------------------------------------------------
 --	Устанавливаем тему
 -------------------------------------------------------------------------------
--- beautiful.init("/home/andrew/.config/awesome/themes/dark32/theme.lua")
+--beautiful.init("/home/andrew/.config/awesome/themes/dark32/theme.lua")
+autor.theme()
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -218,6 +211,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 
+--require("lib.globalkey")
+autor.globalkey()
 clientkeys = require("lib.clientkeys")
 
 
@@ -318,4 +313,4 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-local name = require("themes."..theme_name..".rc")
+--local name = require("themes."..theme_name..".rc")

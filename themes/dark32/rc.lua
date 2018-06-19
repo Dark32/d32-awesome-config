@@ -1,14 +1,13 @@
-local gears = require("gears")
-local awful = require("awful")
---require("awful.autofocus")
--- Виджеты и слои
-local wibox = require("wibox")
--- Темы
+--local gears = require("gears")
+--local awful = require("awful")
+--local wibox = require("wibox")
 local beautiful = require("beautiful")
--- Оповещение
-local naughty = require("naughty")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
--- Дополнительные возможности
-local lain = require("lain")
+--local naughty = require("naughty")
+--local hotkeys_popup = require("awful.hotkeys_popup").widget
+--local lain = require("lain")
 
-require("lib.globalkey")
+--require("lib.globalkey")
+
+--	Устанавливаем тему
+-------------------------------------------------------------------------------
+-- beautiful.init( os.getenv("HOME").."/.config/awesome/themes/dark32/theme.lua")

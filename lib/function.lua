@@ -6,3 +6,7 @@ function run_once(cmd)
   end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
+
+function get_home()
+  return os.getenv("HOME")
+end
