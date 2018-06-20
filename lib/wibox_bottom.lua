@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local ram_widget = require('widget.ram-widget')
 local cpu_widget = require('widget.cpu-widget')
---local iface_widget = require('widget.iface-widget')
+local iface_widget = require('widget.iface-widget')
 local pulse_widget = require('widget.pulse-widget')
 local bat_widget = require('widget.bat-widget')
 
@@ -50,7 +50,7 @@ return function(s)
         pulse_widget,
         layout = wibox.layout.fixed.horizontal
         },
---      iface_widget,
+      iface_widget,
       cpu_widget,
       ram_widget,
       bat_widget,
