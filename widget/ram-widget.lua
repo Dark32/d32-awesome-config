@@ -9,11 +9,13 @@ local ram_progressbar =  wibox.widget {
     value         = 0.5,
     forced_height = 20,
     forced_width  = 75,
-    paddings      = 3,
-    border_width  = 2,
+    border_width  = 2,    
+    paddings      = 2,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
-    shape         = gears.shape.powerline,
+    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#008844"}, {0.75, "#ff0000"} } },
+    background_color 	= 'alpha',
+--    shape         = gears.shape.powerline,
     bar_shape     = gears.shape.powerline,
   }
   local ram_text = wibox.widget {
@@ -26,11 +28,13 @@ local swap_progressbar =  wibox.widget {
     value         = 0.5,
     forced_height = 20,
     forced_width  = 75,
-    paddings      = 3,
-    border_width  = 2,
+    border_width  = 2,   
+    paddings      = 2,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
-    shape         = gears.shape.powerline,
+    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#008844"}, {0.75, "#ff0000"} } },
+    background_color 	= 'alpha',
+--    shape         = gears.shape.powerline,
     bar_shape     = gears.shape.powerline,
   }
   local swap_text = wibox.widget {
@@ -38,15 +42,13 @@ local swap_progressbar =  wibox.widget {
     widget = wibox.widget.textbox,
   }
   
-local ramgraph_widget = wibox.widget {
-  layout = wibox.layout.fixed.horizontal,
- {
+local ramgraph_widget = {
+  mem = wibox.widget {
     ram_progressbar,
     ram_text,
-     horizontal_offset = 5,
     layout = wibox.layout.stack,
   },
-  {
+  swap = wibox.widget{
     swap_progressbar,
     swap_text,
     layout = wibox.layout.stack,

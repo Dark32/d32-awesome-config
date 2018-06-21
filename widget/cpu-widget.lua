@@ -10,7 +10,7 @@ local cpugraph_widget = wibox.widget {
     background_color = '#00000000',
     forced_width = 50,
     step_width = 2,
-    step_spacing = 1,
+    step_spacing = 0,
     widget = wibox.widget.graph,
     
 }
@@ -24,9 +24,9 @@ local cpu_widget2 = wibox.widget {
     layout = wibox.layout.stack,
     cpu_widget,
     cpu_text,    
-    shape         = gears.shape.powerline,
+--    shape         = gears.shape.powerline,
     
-    border_color  = beautiful.border_color,
+--    border_color  = beautiful.border_color,
   }
 
 local total_prev = 0
@@ -45,9 +45,11 @@ watch("cat /proc/stat | grep '^cpu '", 1,
         cpu_text.text = string.format("CPU %d%%", math.floor( diff_usage))
 --        cpu_text.text ="CPU "
         if diff_usage > 80 then
-            widget:set_color('#ff4136')
+          widget:set_color('#ff0000')
+        elseif diff_usage > 60 then
+          widget:set_color('#888800')
         else
-            widget:set_color('#74aeab')
+          widget:set_color('#008800')
         end
 
         widget:add_value(diff_usage)

@@ -135,7 +135,6 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
 
 local tasklist_buttons = awful.util.table.join(
   awful.button({ }, 1, function (c)
