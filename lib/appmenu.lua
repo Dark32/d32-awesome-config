@@ -23,8 +23,8 @@ local appmenu = {
           }
       },
       {"Info", {
-            { "xprop",              terminal .. " -e xprop; read"},
-            { "xwininfo",           terminal .. " -e xwininfo; read"}, 
+            { "xprop",              terminal .. " -e 'bash -c xprop;bash'"},
+            { "xwininfo",           terminal .. " -e 'bash -c xwininfo;bash'"}, 
           }
       },
       {"Edit", {

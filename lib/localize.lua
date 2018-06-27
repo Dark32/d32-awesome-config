@@ -46,7 +46,11 @@ local localize = {
     tag_toggle      = function(i) return {description = "Переключить tag #" .. i,           group = group.tag} end,
     tag_client_move = function(i) return {description = "Переместить клиент на tag #"..i,   group = group.tag} end,
     tag_focused     = function(i) return {description = "Переключить клиент в tag #" .. i,  group = group.tag} end,
-  quaqe             = {description = "Показать консоль",                      group = group.launcher}
+    quaqe              = {description = "Показать консоль",                    group = group.launcher},
+    layout_set_tile    = {description = "Слой столбцами",                      group = group.layout},
+    layout_set_max     = {description = "Слой вкладками",                      group = group.layout},
+    screen_shot        = {description = "Снимок экрана",                       group = group.launcher},    
+    screen_record      = {description = "Запись экрана",                       group = group.launcher},
   },
   localkey = {
     fullscreen      = {description = "toggle fullscreen",             group = group.client},

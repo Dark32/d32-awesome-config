@@ -18,6 +18,36 @@ local function resize(c)
    )
  end
  
+ local function float_move(c)
+  local grabber
+    awful.client.floating.set(c, true)
+    c:geometry({
+    x =c:geometry().x,
+    y = c:geometry().y,
+    width = c.screen.geometry.width/2.5,
+    height= c.screen.geometry.height/2.5
+})
+    grabber = awful.keygrabber.run(function(mod, key, event)
+      c.screen.text_mode:set_text(" | Fast Move [q][w][e][a][s]C[d][z][x][c]")
+      if event == "release" then return end
+      if     key == 'q' then awful.placement.top_left(c)
+      elseif key == 'w' then awful.placement.top(c)
+      elseif key == 'e' then awful.placement.top_right(c)
+      elseif key == 'a' then awful.placement.left (c)
+      elseif key == 's' then awful.placement.centered(c)
+      elseif key == 'd' then awful.placement.right(c)
+      elseif key == 'z' then awful.placement.bottom_left(c)
+      elseif key == 'x' then awful.placement.bottom(c)    
+      elseif key == 'c' then awful.placement.bottom_right(c)
+      else   
+        awful.keygrabber.stop(grabber)
+        c.screen.text_mode:set_text("")
+      end
+     end
+    )
+ end
+ 
+ 
 local func = {
   fullscreen      =function (c)
                     c.fullscreen = not c.fullscreen
@@ -44,6 +74,8 @@ local func = {
   move_left       = function (c) c:relative_move(-5,  0, 0, 0) end,
   move_right      = function (c) c:relative_move( 5,  0, 0, 0) end,
   resize          = function (c) resize(c)                     end,
+  clien_float_r   = function (c) float_move(c)                 end,
+  
   }
 local clientkeys = awful.util.table.join(
   awful.key({ modkey,           }, "f",     func.fullscreen,                localize.localkey.fullscreen),
@@ -51,14 +83,15 @@ local clientkeys = awful.util.table.join(
   awful.key({ modkey, "Shift"   }, "space", awful.client.floating.toggle,   localize.localkey.float),
   awful.key({ modkey,           }, "o",     func.move_to_screen,            localize.localkey.move_to_screen),
   awful.key({ modkey,           }, "t",     func.top,                       localize.localkey.top),
-  awful.key({ modkey,           }, "n",     func.minimize,                  localize.localkey.minimize),
-  awful.key({ modkey, "Control" }, "n",     func.restore,                   localize.localkey.restore),
+--  awful.key({ modkey,           }, "n",     func.minimize,                  localize.localkey.minimize),
+--  awful.key({ modkey, "Control" }, "n",     func.restore,                   localize.localkey.restore),
   awful.key({ modkey,           }, "m",     func.maximize,                  localize.localkey.maximize),
   awful.key({ modkey, "Control" }, "Down",  func.move_down,                 localize.localkey.move_down),
   awful.key({ modkey, "Control" }, "Up",    func.move_up,                   localize.localkey.move_up),
   awful.key({ modkey, "Control" }, "Left",  func.move_left,                 localize.localkey.move_left),
   awful.key({ modkey, "Control" }, "Right", func.move_right,                localize.localkey.move_right),
-  awful.key({ modkey            }, "r",     func.resize,                    localize.localkey.resize)
+  awful.key({ modkey            }, "r",     func.resize,                    localize.localkey.resize),
+  awful.key({ modkey            }, "n",     func.clien_float_r,                localize.localkey.resize)
 
   --awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster())   end,        {description = "move to master", group = "client"}),
 )

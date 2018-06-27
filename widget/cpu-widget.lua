@@ -1,13 +1,14 @@
-
 local beautiful = require("beautiful")
 local gears = require("gears")
 local watch = require("awful.widget.watch")
 local wibox = require("wibox")
+local lain = require("lain")
+local markup = lain.util.markup
 
 local cpugraph_widget = wibox.widget {
     max_value = 100,
     color = '#74aeab',
-    background_color = '#00000000',
+    background_color = 'alpha',
     forced_width = 50,
     step_width = 2,
     step_spacing = 0,
@@ -42,7 +43,7 @@ watch("cat /proc/stat | grep '^cpu '", 1,
         local diff_idle = idle - idle_prev
         local diff_total = total - total_prev
         local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
-        cpu_text.text = string.format("CPU %d%%", math.floor( diff_usage))
+        cpu_text.markup = string.format("CPU %d%%", math.floor( diff_usage))
 --        cpu_text.text ="CPU "
         if diff_usage > 80 then
           widget:set_color('#ff0000')

@@ -21,7 +21,7 @@ os.setlocale(os.getenv("LANG"))
 -------------------------------------------------------------------------------
 --beautiful.init("/home/andrew/.config/awesome/themes/dark32/theme.lua")
 autor.theme()
-
+--beautiful.init( "/home/andrew/.config/awesome/themes/dark32/theme.lua")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -49,7 +49,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+--beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -114,12 +114,24 @@ myawesomemenu = {
   { "manual", terminal .. " -e man awesome" },
   { "edit config", editor_cmd .. " " .. awesome.conffile },
   { "restart", awesome.restart },
-  { "quit", function() awesome.quit() end}
+  { "quit", function() awesome.quit() end},
 }
+  
+exit_menu= { "exit", {
+      {'Выключить',     'systemctl poweroff'      },
+      {'Перезагрузить', 'systemctl reboot'        },
+      {'Гибернация',    'systemctl hibernate'     },
+      {'Ждущий',        'systemctl suspend'       },
+      {'Отключить',     'systemctl halt'          },
+      {'Гибридный',     'systemctl hybrid-sleep'  },
+    }
+  }
+
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
       --{ "Debian", debian.menu.Debian_menu.Debian },
-      { "open terminal", terminal }
+      { "open terminal", terminal },
+      exit_menu,
     }
   })
 
@@ -186,7 +198,7 @@ s.quake = lain.util.quake({
     border = 0,
     })
     -- Each screen has its own tag table.
-    awful.tag({ "1: ", "2: ", "3: ", "4: ", "5: ", "6: ", "7: ", "8: ", "9: " ,"10: "}, s, awful.layout.layouts[1])
+    awful.tag({ "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:", "9: " ,"10: "}, s, awful.layout.layouts[1])
 
 
     -- Create a tasklist widget
@@ -204,7 +216,10 @@ s.quake = lain.util.quake({
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    awful.button({ }, 3, function ()
+          mymainmenu:toggle()
+          applauncher:hide()
+        end)
   ))
 -- }}}
 
