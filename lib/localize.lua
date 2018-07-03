@@ -66,6 +66,7 @@ local localize = {
     move_left       = {description = "Move Left",                     group = group.float},
     move_right      = {description = "Move Right",                    group = group.float},
     resize          = {description = "Resaze",                        group = group.float},
+    clien_float_r   = {description = "Быстро и плавать",              group = group.float},
     }
 }
 

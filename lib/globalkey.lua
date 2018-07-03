@@ -4,8 +4,8 @@ local beautiful     = require("beautiful")
 local debug         = require('gears.debug')
 local localize      = require("lib.localize")
 local screencast    = require('lib.screencast2')
-
-local add =  awful.key
+local mode_tooltip  = require('widget.mode-tooltip')
+local add           = awful.key
 
 local cnlw = require('widget.caps_num_lock-widget')
 
@@ -106,7 +106,10 @@ local globalkeys = awful.util.table.join(
   add({ modkey,           }, "Print",      func.screen_record,      localize.globalkey.screen_record),
 -- Статус кнопок
   add({                   }, "Num_Lock",   function () cnlw.numlock:check()  end),
-  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end)
+  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end),
+-- Всякая хернь
+  add({modkey             }, "p",  function ()  end)
+  
 )
 
 -- Bind all key numbers to tags.
