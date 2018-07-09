@@ -53,7 +53,7 @@ local taglist_buttons = awful.util.table.join(
 
 
 return function(s)
-  s.wibox_bottom = awful.wibar({ position = "bottom", screen = s })
+  s.wibox_bottom = awful.wibar({ position = "bottom", screen = s, height = 16 })
   s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
   s.text_mode = wibox.widget.textbox()
   s.mypromptbox = awful.widget.prompt()
@@ -123,7 +123,7 @@ return function(s)
         fg = color.black,
         widget = wibox.container.background
       },
-      mykeyboardlayout,
+--      mykeyboardlayout,
       caps_num_lock_widget.capslock,      
       caps_num_lock_widget.numlock,
       wibox.widget.systray(),

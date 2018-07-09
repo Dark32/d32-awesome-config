@@ -1,6 +1,8 @@
+local awful = require("awful")
+
 function run_once(cmd)
-  findme = cmd
-  firstspace = cmd:find(" ")
+  local findme = cmd
+  local firstspace = cmd:find(" ")
   if firstspace then
     findme = cmd:sub(0, firstspace-1)
   end

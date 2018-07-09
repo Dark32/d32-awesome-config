@@ -9,6 +9,26 @@ local add           = awful.key
 
 local cnlw = require('widget.caps_num_lock-widget')
 
+local function launch(cmd)
+  awful.spawn(string.format(cmd, beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+end
+local dmenu = {
+  app = [[j4-dmenu-desktop --dmenu='rofi -dmenu -p "launch: " -show run -o 85 -location 2 -lines 16 -width 1200'r]],
+  file = 'rofi -show fb -modi fb:~/.config/i3/rofi/rofi-file-browser.sh -o 85 -location 2 -lines 32 -width 1200',
+  launch = "rofi -show run -o 85 -location 2 -lines 16 -width 1200"
+  }
+local dmenu_launcher_key = mode_tooltip.prepare_key {
+ {{},'a', 'Приложения', function () launch(dmenu.app)     end, true },
+ {{},'f', 'Файлы',      function () launch(dmenu.file)    end, true },
+ {{},'d', 'Запуск',     function () launch(dmenu.launch)  end, true },
+ }
+mode_tooltip:create('dmenu_launcher',dmenu_launcher_key )
+
+ local function dmenu_launcher2()
+  mode_tooltip:grabber('dmenu_launcher')
+ end
+ 
+ 
 local func = {
   client_next   = function () awful.client.focus.byidx( 1)    end,
   client_prev   = function () awful.client.focus.byidx(-1)    end,
@@ -50,8 +70,8 @@ local func = {
                               end
                           end
                       end,
-  launcher_dmenu      =  function () awful.spawn(string.format("rofi -show run -o 85 -location 2 -lines 16 -width 1200", beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus)) end,
-  quaqe               = function () awful.screen.focused().quake:toggle() end,
+  launcher_dmenu      = function() dmenu_launcher2() end,
+  quaqe               = function() awful.screen.focused().quake:toggle() end,
   layout_set_tile     = function() awful.layout.set(awful.layout.suit.tile) end,
   layout_set_max      = function() awful.layout.set(awful.layout.suit.max) end, 
   screen_shot         = function() awful.spawn(os.getenv("HOME").."/.config/awesome/lib/sh/screen.sh -d -c") end,
@@ -92,7 +112,7 @@ local globalkeys = awful.util.table.join(
   -- Prompt
   add({ modkey ,"Shift"   }, "r",      func.launcher_promt,         localize.globalkey.launcher_promt),
   add({ modkey            }, "x",      func.awesome_lua,            localize.globalkey.awesome_lua),
-  add({ modkey            }, "b",      func.awesome_wibox,          localize.globalkey.awesome_wibox),
+--  add({ modkey            }, "b",      func.awesome_wibox,          localize.globalkey.awesome_wibox),
 --[[ dmenu]]
   add({ modkey            }, "d",      func.launcher_dmenu,         localize.globalkey.launcher_dmenu),
 --]]
@@ -106,9 +126,7 @@ local globalkeys = awful.util.table.join(
   add({ modkey,           }, "Print",      func.screen_record,      localize.globalkey.screen_record),
 -- Статус кнопок
   add({                   }, "Num_Lock",   function () cnlw.numlock:check()  end),
-  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end),
--- Всякая хернь
-  add({modkey             }, "p",  function ()  end)
+  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end)
   
 )
 

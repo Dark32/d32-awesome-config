@@ -62,8 +62,12 @@ local rule = {
   },
 
   -- Set Firefox to always map on the tag named "2" on screen 1.
-  -- { rule = { class = "Firefox" },
-  --   properties = { screen = 1, tag = "2" } },
+   { rule = { class = "Firefox" }, properties = { screen = 1, tag = screen[1].tags[4]} },
+   { rule = { class = "Thunderbird" },  properties = { screen = 1, tag = screen[1].tags[6]} },
+   { rule_any = { class = {"Thunar",'thunar'} }, properties = { screen = 1, screen[1].tags[7] } },
+   { rule_any = { class = {"TelegramDesktop",'Telegram' }}, properties = { screen = 1, tag = screen[1].tags[5] } },
+   { rule_any = { class = {"brick",'Brick' }}, properties = { screen = 1, tag = screen[1].tags[5] } },   
+--   { rule_any = { class = {"leafpad",'Leafpad' }}, properties = { screen = 1, tag = screen[1].tags[5] } },
 }
 
 return rule;

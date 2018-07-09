@@ -6,8 +6,10 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local autofocus = require("awful.autofocus")
 local lain = require("lain")
 require("lib.function")
+require('run')
 -------------------------------------------------------------------------------
 --Константы
 -------------------------------------------------------------------------------
@@ -143,7 +145,7 @@ applauncher = awful.menu({ items =  appmenu })
 
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+--mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -187,26 +189,26 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
-
+local labels = { "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:", "9: " ,"10: "}
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
-s.quake = lain.util.quake({
-    width=1,
-    height = 0.5,
-    app = terminal,
-    border = 0,
+    s.quake = lain.util.quake({
+      width=1,
+      height = 0.5,
+      app = terminal,
+      border = 0,
     })
     -- Each screen has its own tag table.
-    awful.tag({ "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:", "9: " ,"10: "}, s, awful.layout.layouts[1])
+    awful.tag(labels, s, awful.layout.layouts[1])
 
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
     -- Create the wibox
-     s.wibox_bottom =  require("lib.wibox_bottom")(s)
+    s.wibox_bottom =  require("lib.wibox_bottom")(s)
 
-    s.wibox_tasklist= awful.wibar({ position = "top", screen = s })
+    s.wibox_tasklist= awful.wibar({ position = "top", screen = s, height = 16 })
     s.wibox_tasklist:setup {
       layout = wibox.layout.flex.horizontal,
       s.mytasklist, -- Middle widget
@@ -325,6 +327,10 @@ client.connect_signal("request::titlebars", function(c)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+--tag.connect_signal("property::urgent", function(c) awful.client.urgent.jumpto(c) end)
+
+
+ 
 -- }}}
 
 --local name = require("themes."..theme_name..".rc")

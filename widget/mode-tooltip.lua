@@ -1,14 +1,14 @@
-local awful = require("awful")
-local wibox = require("wibox")
-local lain = require("lain")
-local gtable = require("gears.table")
-local debug = require('gears.debug')
+local awful   = require("awful")
+local wibox   = require("wibox")
+local lain    = require("lain")
+local gtable  = require("gears.table")
+local debug   = require('gears.debug')
+local colors  = require('lib.colors')
 
-local markup = lain.util.markup
-local table = table
-
-local separators = lain.util.separators
-local colors = require('lib.colors')
+local markup      = lain.util.markup
+local table       = table
+local client      = client
+local separators  = lain.util.separators
 
 local key_code ={
   Mod4="Super",
@@ -67,7 +67,7 @@ mode_tooltip.setting = {
   
   }
 mode_tooltip.modes = {}
-mode_tooltip.ignore_mod =  { "Lock", "Mod2" }
+mode_tooltip.ignore_mod =  { "Lock", "Mod2", "Unknown" } -- я не знаю что за Unknown
 
 local function has_value (tab, val)
     for index, value in ipairs(tab) do
@@ -169,7 +169,7 @@ function mode_tooltip.key_compare(key_mode, key_pressed)
   return key_mode == key_pressed
 end
 
-function mode_tooltip:grabber(index_mode, client)
+function mode_tooltip:grabber(index_mode, c)
   local mode = self:get(index_mode)
   if not mode then return end
   if mode.widget.visible then
@@ -195,8 +195,11 @@ function mode_tooltip:grabber(index_mode, client)
         if _key then
           key_mode = keys
             pcall(function() 
-              if client then
-                key_mode.action(client) 
+              if c then
+                if not client.focus == c then
+                  c = client.focus
+                end
+                key_mode.action(c) 
               else 
                 key_mode.action()  
               end
