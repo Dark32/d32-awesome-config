@@ -1,5 +1,3 @@
-local theme_name = "dark32"
-local autor = require("themes.selector")("dark32")
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
@@ -21,9 +19,7 @@ os.setlocale(os.getenv("LANG"))
 -------------------------------------------------------------------------------
 --	Устанавливаем тему
 -------------------------------------------------------------------------------
---beautiful.init("/home/andrew/.config/awesome/themes/dark32/theme.lua")
-autor.theme()
---beautiful.init( "/home/andrew/.config/awesome/themes/dark32/theme.lua")
+ beautiful.init( os.getenv("HOME").."/.config/awesome/themes/dark32/theme.lua")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -130,22 +126,18 @@ exit_menu= { "exit", {
   }
 
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-      --{ "Debian", debian.menu.Debian_menu.Debian },
+mymainmenu = awful.menu({ 
+    items = { 
+      { "awesome", myawesomemenu, beautiful.awesome_icon },
       { "open terminal", terminal },
       exit_menu,
     }
-  })
+})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,   menu = mymainmenu })
 
 appmenu = require("lib.appmenu")
 applauncher = awful.menu({ items =  appmenu })
-
-
-
--- Keyboard map indicator and switcher
---mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -167,13 +159,8 @@ local tasklist_buttons = awful.util.table.join(
         c:raise()
       end
     end),
-  awful.button({ }, 3, client_menu_toggle_fn()),
-  awful.button({ }, 4, function ()
-      awful.client.focus.byidx(1)
-    end),
-  awful.button({ }, 5, function ()
-      awful.client.focus.byidx(-1)
-    end))
+  awful.button({ }, 3, client_menu_toggle_fn())
+  )
 
 local function set_wallpaper(s)
   -- Wallpaper
@@ -189,7 +176,31 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
-local labels = { "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:", "9: " ,"10: "}
+local labels = {
+  [1] = "1", 
+  [2] = "2", 
+  [3] = "3", 
+  [4] = "4",
+  [5] = "5",
+  [6] = "6",
+  [7] = "7",
+  [8] = "8",
+  [9] = "9" ,
+  [10] = "0"
+  }
+local layouts = { 
+  [1] = awful.layout.suit.tile,   
+  [2] = awful.layout.suit.tile,
+  [3] = awful.layout.suit.max, 
+  [4] = awful.layout.suit.max,
+  [5] = awful.layout.suit.max,
+  [6] = awful.layout.suit.tile,
+  [7] = awful.layout.suit.tile,
+  [8] = awful.layout.suit.tile,
+  [9] = awful.layout.suit.tile,
+  [10] = awful.layout.suit.tile
+  }
+--awful.layout.layouts
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -200,18 +211,16 @@ awful.screen.connect_for_each_screen(function(s)
       border = 0,
     })
     -- Each screen has its own tag table.
-    awful.tag(labels, s, awful.layout.layouts[1])
-
-
+    awful.tag(labels, s, layouts)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
     -- Create the wibox
     s.wibox_bottom =  require("lib.wibox_bottom")(s)
 
-    s.wibox_tasklist= awful.wibar({ position = "top", screen = s, height = 16 })
+    s.wibox_tasklist = awful.wibar({ position = "top", screen = s, height = 16 })
     s.wibox_tasklist:setup {
       layout = wibox.layout.flex.horizontal,
-      s.mytasklist, -- Middle widget
+      s.mytasklist,
     }
   end)
 -- }}}
@@ -228,7 +237,7 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 
 --require("lib.globalkey")
-autor.globalkey()
+require("lib.globalkey")
 clientkeys = require("lib.clientkeys")
 
 

@@ -1,8 +1,9 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local lain = require("lain")
-
+local vicious = require("vicious")
 local color =require('lib.colors')
+local rot_bg =require('lib.rotate_bg')
 
 local ram_widget = require('widget.ram-widget')
 local cpu_widget = require('widget.cpu-widget')
@@ -12,8 +13,20 @@ local bat_widget = require('widget.bat-widget')
 local record_widget = require('lib.screencast2').widget
 local caps_num_lock_widget = require('widget.caps_num_lock-widget')
 
-mytextclock = wibox.widget.textclock('%F %a %H:%M')
+local mytextclock = wibox.widget.textclock('%F %a %H:%M')
+local mytemp = lain.widget.temp({
+    settings = function() 
+      widget:set_text('+'..coretemp_now..'°C') 
+    widget.forced_width = 50
+    end
+    })
 
+local net = lain.widget.net({
+    settings = function()
+        widget:set_markup(" " .. net_now.received .. " ↓↑ " .. net_now.sent .. " ")
+        widget.forced_width = 100
+    end
+})
 lain.widget.calendar({
     attach_to = {mytextclock },
     notification_preset = {
@@ -25,14 +38,9 @@ lain.widget.calendar({
 })
 
 local separators = lain.util.separators
+local markup = lain.util.markup
 local larrow     = separators.arrow_left
 local rarrow     = separators.arrow_right
-
-local arrows ={
-  raag = rarrow(color.alpha, color.gray),
-  raga = rarrow(color.gray, color.alpha),
-  }
-
 
 local taglist_buttons = awful.util.table.join(
   awful.button({ }, 1, function(t) t:view_only() end),
@@ -50,7 +58,6 @@ local taglist_buttons = awful.util.table.join(
   --awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
   --awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
-
 
 return function(s)
   s.wibox_bottom = awful.wibar({ position = "bottom", screen = s, height = 16 })
@@ -74,60 +81,31 @@ return function(s)
     {layout = wibox.layout.fixed.horizontal,},
     { -- Right widgets
       layout = wibox.layout.fixed.horizontal,
-      arrows.raag,
-      {
-        wibox.widget{
-          pulse_widget,
-          layout = wibox.layout.fixed.horizontal
-        },
-        bg = color.gray,
-        fg = color.black,
-        widget = wibox.container.background
-      },
-      arrows.raga,
-      {
-        iface_widget,
-        bg = color.alpha,
-        fg = color.dark_green,
-        widget = wibox.container.background
-      },
-      arrows.raag,
-       {
-        cpu_widget,
-        bg = color.gray,
-        fg = color.black,
-        widget = wibox.container.background
-      },
-      arrows.raga,
-      ram_widget.mem,
-      arrows.raag, 
-      {
-        ram_widget.swap,
-        bg = color.gray,
-        fg = color.black,
-        widget = wibox.container.background
-      },     
-      arrows.raga,
-      bat_widget,     
-      arrows.raag,
-      {
-        mytextclock,
-        bg = color.gray,
-        fg = color.black,
-        widget = wibox.container.background
-      },  
-      arrows.raga,
-      {
-        record_widget,
-        bg = color.red,
-        fg = color.black,
-        widget = wibox.container.background
-      },
---      mykeyboardlayout,
-      caps_num_lock_widget.capslock,      
-      caps_num_lock_widget.numlock,
-      wibox.widget.systray(),
-      s.mylayoutbox,
+      rarrow(color.alpha, color.gray),      
+      rot_bg:bg(net),       
+      rot_bg:rarrow(),
+      rot_bg:bg(pulse_widget),
+      rot_bg:rarrow(),
+      rot_bg:bg(iface_widget), 
+      rot_bg:rarrow(),
+      rot_bg:bg(cpu_widget),
+      rot_bg:rarrow(),
+      rot_bg:bg(mytemp),      
+      rot_bg:rarrow(), 
+      rot_bg:bg(ram_widget.mem),
+      rot_bg:rarrow(),
+      rot_bg:bg(ram_widget.swap),
+      rot_bg:rarrow(),
+      rot_bg:bg(bat_widget,color.l_gray),   
+      rot_bg:rarrow(),
+      rot_bg:bg(mytextclock),  
+      rarrow(rot_bg.color.from.bg, color.alpha),
+      bg(record_widget,color.red, color.black),
+--       bg(mykeyboardlayout,color.alpha,color.black),   
+      bg(caps_num_lock_widget.capslock,color.alpha,color.black),      
+      bg(caps_num_lock_widget.numlock,color.alpha,color.black), 
+      bg(wibox.widget.systray(),color.alpha,color.black), 
+      bg(s.mylayoutbox,color.alpha,color.black), 
     },
   }
   return wibox_bottom

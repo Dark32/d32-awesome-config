@@ -6,6 +6,7 @@ local localize      = require("lib.localize")
 local screencast    = require('lib.screencast2')
 local mode_tooltip  = require('widget.mode-tooltip')
 local add           = awful.key
+local translate     = require("widget.translate")
 
 local cnlw = require('widget.caps_num_lock-widget')
 
@@ -77,6 +78,7 @@ local func = {
   screen_shot         = function() awful.spawn(os.getenv("HOME").."/.config/awesome/lib/sh/screen.sh -d -c") end,
   screen_shot2        = function() awful.spawn(os.getenv("HOME").."/.config/awesome/lib/sh/screen.sh -d -c -s") end,
   screen_record       = function() screencast.call() end,
+  translite_func      = function() translate.show_translate_prompt() end,
   
 }
 
@@ -126,7 +128,9 @@ local globalkeys = awful.util.table.join(
   add({ modkey,           }, "Print",      func.screen_record,      localize.globalkey.screen_record),
 -- Статус кнопок
   add({                   }, "Num_Lock",   function () cnlw.numlock:check()  end),
-  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end)
+  add({                   }, "Caps_Lock",  function () cnlw.capslock:check() end),
+-- Переводчик
+  add({ modkey            }, "y",          func.translite_func,     localize.globalkey.translite_func)
   
 )
 

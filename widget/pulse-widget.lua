@@ -10,6 +10,7 @@ local pulse = lain.widget.pulse {
             vlevel = "MUTE"
       end
       widget:set_markup("♪ "..vlevel)
+      widget.forced_width = 45
    end
 }
 pulse.widget:buttons(awful.util.table.join(

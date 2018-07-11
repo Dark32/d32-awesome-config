@@ -51,6 +51,7 @@ local localize = {
     layout_set_max     = {description = "Слой вкладками",                      group = group.layout},
     screen_shot        = {description = "Снимок экрана",                       group = group.launcher},    
     screen_record      = {description = "Запись экрана",                       group = group.launcher},
+    translite_func     = {description = "Заняться переводом",                  group = group.launcher },
   },
   localkey = {
     fullscreen      = {description = "toggle fullscreen",             group = group.client},

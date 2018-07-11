@@ -1,14 +1,29 @@
+local xresources = require('beautiful.xresources')
+local xrdb = xresources.get_current_theme()
+
 local color = {
-  red   = "#ff0000",
-  green = "#00ff00",
-  blue  = "#0000ff",
   alpha = "alpha",
-  gray  = "#888888",
-  black = "#000000",
-  white = "#ffffff",
+  black = xrdb.color0,
+  white = xrdb.color15,
   
-  dark_green = "#009900",
-  dark_gray  = "#444444",
+  red     = xrdb.color9,
+  green   = xrdb.color10,
+  blue    = xrdb.color12,
+  gray    = xrdb.color8,
+  yellow  = xrdb.color11,
+  magenta = xrdb.color13,
+  cyan    = xrdb.color14,
+  
+  dark_red     = xrdb.color1,
+  dark_green   = xrdb.color2,
+  dark_blue    = xrdb.color4,
+  dark_gray    = xrdb.color8,
+  dark_yellow  = xrdb.color3,
+  dark_magenta = xrdb.color5,
+  dark_cyan    = xrdb.color15,
+  
+  l_green = '#bbffbb',
+  l_gray  = xrdb.color7
 }
 
 return color

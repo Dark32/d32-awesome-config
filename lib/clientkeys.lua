@@ -81,7 +81,7 @@ local clientkeys = awful.util.table.join(
   awful.key({ altKey            }, "F4",    func.close,                     localize.localkey.close),
   awful.key({ modkey, "Shift"   }, "space", awful.client.floating.toggle,   localize.localkey.float),
   awful.key({ modkey,           }, "o",     func.move_to_screen,            localize.localkey.move_to_screen),
-  awful.key({ modkey,           }, "t",     func.top,                       localize.localkey.top),
+  awful.key({ modkey, "Shift"   }, "t",     func.top,                       localize.localkey.top),
 --  awful.key({ modkey,           }, "n",     func.minimize,                  localize.localkey.minimize),
 --  awful.key({ modkey, "Control" }, "n",     func.restore,                   localize.localkey.restore),
   awful.key({ modkey,           }, "m",     func.maximize,                  localize.localkey.maximize),

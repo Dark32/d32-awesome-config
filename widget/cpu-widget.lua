@@ -11,12 +11,13 @@ local cpugraph_widget = wibox.widget {
     background_color = 'alpha',
     forced_width = 50,
     step_width = 2,
-    step_spacing = 0,
+    step_spacing = 0, 
     widget = wibox.widget.graph,
     
 }
 local cpu_text = wibox.widget {
     text   = '50%',
+    forced_width = 55,
     widget = wibox.widget.textbox,
   }
 -- mirros and pushs up a bit
