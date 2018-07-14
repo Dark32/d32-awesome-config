@@ -7,6 +7,7 @@ local dump = debug.dump
 local io = io
 local screencast = {}
 screencast.PIDFILE   = os.getenv("HOME").."/.screencast.pid"
+screencast.PROCESS   = os.getenv("HOME").."/.screencast.process"
 
 screencast.call = function()
   screencast.tootle();
@@ -15,6 +16,10 @@ end
 
 screencast.runly = function()
   return fs.file_readable(screencast.PIDFILE)
+end
+
+screencast.process = function()
+  return fs.file_readable(screencast.PROCESS)
 end
 
 screencast.show = function()

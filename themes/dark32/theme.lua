@@ -1,14 +1,14 @@
 ---------------------------
 -- Dark32 awesome theme --
 ---------------------------
-
+local gears = require("gears")
 local theme = {}
 
 
 theme.config_dir    = os.getenv("HOME") .."/.config/awesome/"
 theme.lain_icons    = os.getenv("HOME") ..  "/.config/awesome/lain/icons/layout/default/"
-                           
-                           
+theme.theme_dir     = theme.config_dir.."themes/dark32/"
+                      
 theme.font          = "FontAwesome 8"
 
 theme.bg_normal     = "#222222"
@@ -40,8 +40,10 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
-theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
+--theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
+--theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
+theme.taglist_squares_sel   = theme.theme_dir.."taglist/squarefw.png"
+theme.taglist_squares_unsel = theme.theme_dir.."taglist/squarew.png"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
@@ -115,5 +117,13 @@ theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png" -- cascade.til
 theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
 theme.layout_centerworkh = theme.lain_icons .. "centerworkhw.png" -- centerwork.horizontal
 
+--theme.tasklist_sticky               = "▪"
+--theme.tasklist_ontop                = '⌃'
+--theme.tasklist_above                = '▴'
+--theme.tasklist_below                = '▾'
+--theme.tasklist_floating             = '✈'
+--theme.tasklist_maximized            = '<b>+</b>'
+--theme.tasklist_maximized_horizontal = '⬌'
+--theme.tasklist_maximized_vertical   = '⬍'
 
 return theme

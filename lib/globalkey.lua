@@ -18,15 +18,18 @@ local dmenu = {
   file = 'rofi -show fb -modi fb:~/.config/i3/rofi/rofi-file-browser.sh -o 85 -location 2 -lines 32 -width 1200',
   launch = "rofi -show run -o 85 -location 2 -lines 16 -width 1200"
   }
-local dmenu_launcher_key = mode_tooltip.prepare_key {
+local launcher_key = mode_tooltip.prepare_key {
  {{},'a', 'Приложения', function () launch(dmenu.app)     end, true },
  {{},'f', 'Файлы',      function () launch(dmenu.file)    end, true },
  {{},'d', 'Запуск',     function () launch(dmenu.launch)  end, true },
+ {{},'z', 'zbstudio',          function () launch('zbstudio')  end, true },
+ {{},'t', 'Файловый менеджер', function () launch('thunar')    end, true }, 
+ {{},'t', 'Файловый менеджер', function () launch('thunar')    end, true },
  }
-mode_tooltip:create('dmenu_launcher',dmenu_launcher_key )
+mode_tooltip:create('launcher',launcher_key, 'Быстрый запуск приложений' )
 
- local function dmenu_launcher2()
-  mode_tooltip:grabber('dmenu_launcher')
+ local function launcher_app()
+  mode_tooltip:grabber('launcher')
  end
  
  
@@ -71,7 +74,7 @@ local func = {
                               end
                           end
                       end,
-  launcher_dmenu      = function() dmenu_launcher2() end,
+  launcher_dmenu      = function() launcher_app() end,
   quaqe               = function() awful.screen.focused().quake:toggle() end,
   layout_set_tile     = function() awful.layout.set(awful.layout.suit.tile) end,
   layout_set_max      = function() awful.layout.set(awful.layout.suit.max) end, 

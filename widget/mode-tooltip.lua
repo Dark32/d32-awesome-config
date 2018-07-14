@@ -1,14 +1,32 @@
 local awful   = require("awful")
 local wibox   = require("wibox")
 local lain    = require("lain")
+local gears   =  require("gears")
 local gtable  = require("gears.table")
 local debug   = require('gears.debug')
 local colors  = require('lib.colors')
+local beautiful = require("beautiful")
 
+local rot_bg =require('lib.rotate_bg')
+local string      = string
 local markup      = lain.util.markup
 local table       = table
 local client      = client
 local separators  = lain.util.separators
+
+local setting = {
+  color = {
+    white = colors.white,
+    bg = beautiful.bg_normal
+  },
+  position = {
+    x = 20,
+    y = 20,
+    },
+  }
+local len = function(str)
+  return #(str:gsub('[\128-\191]',''))
+end
 
 local key_code ={
   Mod4="Super",
@@ -25,6 +43,7 @@ local key_code ={
   Up='↑',
   Right='→',
   Down='↓',
+  [' '] = 'space',
   ['#67']="F1",
   ['#68']="F2",
   ['#69']="F3",
@@ -63,19 +82,25 @@ local function join_plus_sort(modifiers)
 end
 
 local mode_tooltip = {}
-mode_tooltip.setting = {
-  
-  }
+mode_tooltip.setting = {}
 mode_tooltip.modes = {}
 mode_tooltip.ignore_mod =  { "Lock", "Mod2", "Unknown" } -- я не знаю что за Unknown
 
-local function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
+
+local function key_string_format(mods,key, description)
+  local key_string
+  if #mods < 1 then 
+    key_string = string.format("%s", markup.bold(key_code[key]  or key))
+  else
+    key_string = string.format("%s+%s",
+      markup.bold(join_plus_sort(mods)), 
+      markup.bold(key_code[key]  or key)
+    )
+  end
+  if description then
+    key_string = key_string..' '..markup.fg.color(setting.color.white, description)
+  end
+  return key_string
 end
   
 function mode_tooltip.clear_ignore_mod(mod)
@@ -94,63 +119,80 @@ function mode_tooltip.prepare_key (keys)
   return _keys
 end
 
+local function margin(widget,color, l,r,t,b)
+  r = r or l
+  t = t or r
+  b = b or t
+  return {
+        widget,
+        left = l,
+        right = r,
+        top = t,
+        bottom = b,
+        color = color,
+        widget = wibox.container.margin
+      }
+end
 
-function mode_tooltip:create(mode, keys)
+function mode_tooltip:create(mode, keys, description)
     self.modes[mode] = {}
-    self.modes[mode].key = keys
+    self.modes[mode].key = keys    
+    self.modes[mode].description = description
     self.modes[mode].action = keys.action or (function() end )
+    local key_debug = wibox.widget{
+        markup = 'N/A',
+        align  = 'right',
+        valign = 'center',
+        widget = wibox.widget.textbox
+      }
+    self.modes[mode].key_debug = key_debug
+    local caption_text = description or mode
+    local width = len(caption_text)
     local widgets = { 
       layout  =  wibox.layout.flex.vertical,
-      wibox.widget{
-        markup = mode,
+      margin (wibox.widget{
+        markup = caption_text,
         align  = 'center',
         valign = 'center',
         widget = wibox.widget.textbox
-      }}
+      },setting.color.white,0,0,0,1),
+      }
     for _, key in ipairs(keys) do
-      local str = ''
+      local key_string = ''
       for _, mod in ipairs(keys) do
       
-      end
-      
-      if #key.mods < 1 then 
-        str = string.format("%s %s",
-          markup.bold(key_code[key.key]  or key.key) ,
-          markup.fg.color(colors.gray, key.description)
-        )
-      else
-        str = string.format("%s+%s %s",
-          markup.bold(join_plus_sort(key.mods)),
-          markup.bold(key_code[key.key]  or key.key) ,
-          markup.fg.color(colors.gray, key.description)
-        )
-      end
+    end
+    key_string = key_string_format(key.mods,key.key, key.description )
+      local tmp_str_len = len(key.description..key.key..join_plus_sort(key.mods))
+      if tmp_str_len > width then width = tmp_str_len end
       
       local w = wibox.widget{
-        markup = str,
+        markup = key_string,
         align  = 'left',
         valign = 'center',
         widget = wibox.widget.textbox
       }
       table.insert(widgets,w)
     end
-    local widget = wibox {
-        height = (#widgets +2) * 12,
-        width = 400,
+      table.insert(widgets,key_debug)
+    local wibox_mode = wibox {
+        height = (#widgets +1) * 16,
+        width = width * 8,
         ontop = true,
-        x = 20,
-        y = 20,
+        x = setting.position.x,
+        y = setting.position.y,
         screen = mouse.screen,
         expand = true,
-        bg = '#1e252c',
-        max_widget_size = 500
-    }    
-    widget:setup {
-      border_width = 1,
+        bg = setting.color.bg,
+        border_width = 1,
+        border_color = setting.color.bg,
+        type = 'splash',
+    }   
+    wibox_mode:setup {
       layout  =  wibox.layout.flex.vertical,
-      widgets,
+      margin(margin(widgets,setting.color.bg,5),setting.color.white,1 ),
     }
-    self.modes[mode].widget = widget
+    self.modes[mode].widget = wibox_mode
 end
 
 function mode_tooltip:get(mode)
@@ -188,7 +230,10 @@ function mode_tooltip:grabber(index_mode, c)
     local key_mode 
     if key == 'Escape' then hide() end
     for _, keys in ipairs(mode.key) do
-      mod = mode_tooltip.clear_ignore_mod(mod)
+      mod = mode_tooltip.clear_ignore_mod(mod)  
+      local key_string = key_string_format(mod, key)
+      
+      mode.key_debug.markup = key_string
       local mods = mode_tooltip.key_mod_compare(keys.mods, mod)
       if mods then 
         local _key = mode_tooltip.key_compare(keys.key,key )

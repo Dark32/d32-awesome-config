@@ -100,12 +100,12 @@ return function(s)
       rot_bg:rarrow(),
       rot_bg:bg(mytextclock),  
       rarrow(rot_bg.color.from.bg, color.alpha),
-      bg(record_widget,color.red, color.black),
+      rot_bg:bg(record_widget,color.red, color.black),
 --       bg(mykeyboardlayout,color.alpha,color.black),   
-      bg(caps_num_lock_widget.capslock,color.alpha,color.black),      
-      bg(caps_num_lock_widget.numlock,color.alpha,color.black), 
-      bg(wibox.widget.systray(),color.alpha,color.black), 
-      bg(s.mylayoutbox,color.alpha,color.black), 
+      caps_num_lock_widget.capslock,  
+      caps_num_lock_widget.numlock, 
+      wibox.widget.systray(),
+      s.mylayoutbox,
     },
   }
   return wibox_bottom

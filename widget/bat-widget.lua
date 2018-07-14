@@ -17,7 +17,7 @@ local bat_progressbar =  wibox.widget {
     color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#880000"}, {1.0, "#006600"} } },
     background_color 	= 'alpha',
 --    shape         = gears.shape.powerline,
-    bar_shape     = gears.shape.powerline,
+--    bar_shape     = gears.shape.powerline,
   }
   local bat_text = wibox.widget {
     text   = '50%',

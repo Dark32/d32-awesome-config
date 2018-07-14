@@ -10,7 +10,7 @@ local key_resize =mode_tooltip.prepare_key {
  {{},'Right','Right', function (c) c:relative_move( 0, 0,  5, 0  ) end },
  {{},'Left', 'Left',  function (c) c:relative_move( 0, 0,  -5, 0 ) end },
 }
-mode_tooltip:create('resize',key_resize )
+mode_tooltip:create('resize',key_resize, 'Смена размера' )
 
  local function resize2(c)
   mode_tooltip:grabber('resize', c)

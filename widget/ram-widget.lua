@@ -16,7 +16,7 @@ local ram_progressbar =  wibox.widget {
     color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#008844"}, {0.75, "#ff0000"} } },
     background_color 	= 'alpha',
 --    shape         = gears.shape.powerline,
-    bar_shape     = gears.shape.powerline,
+--    bar_shape     = gears.shape.powerline,
   }
   local ram_text = wibox.widget {
     text   = '50%',
@@ -32,10 +32,10 @@ local swap_progressbar =  wibox.widget {
     paddings      = 2,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
-    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#008844"}, {0.75, "#ff0000"} } },
+    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#00ff88"}, {0.75, "#ff0000"} } },
     background_color 	= 'alpha',
 --    shape         = gears.shape.powerline,
-    bar_shape     = gears.shape.powerline,
+--    bar_shape     = gears.shape.powerline,
   }
   local swap_text = wibox.widget {
     text   = '50%',
