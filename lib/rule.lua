@@ -33,7 +33,8 @@ local rule = {
         "Wpa_gui",
         "pinentry",
         "veromix",
-        "xtightvncviewer"
+        "xtightvncviewer",
+        "Pavucontrol",
       },
       name = {
         "Event Tester",  -- xev.

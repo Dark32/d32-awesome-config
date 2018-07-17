@@ -96,7 +96,7 @@ return function(s)
       rot_bg:rarrow(),
       rot_bg:bg(ram_widget.swap),
       rot_bg:rarrow(),
-      rot_bg:bg(bat_widget,color.l_gray),   
+      rot_bg:bg(bat_widget),   
       rot_bg:rarrow(),
       rot_bg:bg(mytextclock),  
       rarrow(rot_bg.color.from.bg, color.alpha),

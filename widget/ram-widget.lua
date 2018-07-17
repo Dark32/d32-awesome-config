@@ -4,20 +4,45 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 
+local style = require('lib.style')
+local mirror = style.mirror_v
+
+local setting = {
+  height = 20,
+  width = 50
+  }
+
+local rect = function(cr, width, height)
+  gears.shape.rectangle(cr, 50, 4)
+end
+
+--local mirror = function(widget)
+--  return wibox.container.mirror(widget, {vertical = true})
+--end
+
+
 local ram_progressbar =  wibox.widget {
     max_value     = 1,
     value         = 0.5,
-    forced_height = 20,
-    forced_width  = 50,
-    border_width  = 2,    
-    paddings      = 2,
+    forced_height = setting.height,
+    forced_width  = setting.width,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
-    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#008844"}, {0.75, "#ff0000"} } },
+    color         = {
+      type="linear", 
+      from = {0, 0}, 
+      to = {setting.width, 0}, 
+      stops = {
+        {0, "#008844"}, 
+        {0.5, "#ffff00"},
+        {1, "#ff0000"} 
+      }
+    },
+    
     background_color 	= 'alpha',
---    shape         = gears.shape.powerline,
+    shape         = rect,
 --    bar_shape     = gears.shape.powerline,
-  }
+}
   local ram_text = wibox.widget {
     text   = '50%',
     widget = wibox.widget.textbox,
@@ -26,17 +51,25 @@ local ram_progressbar =  wibox.widget {
 local swap_progressbar =  wibox.widget {
     max_value     = 1,
     value         = 0.5,
-    forced_height = 20,
-    forced_width  = 50,
-    border_width  = 2,   
-    paddings      = 2,
+    forced_height = setting.height,
+    forced_width  = setting.width,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
-    color         = {type="linear", from = {0, 0}, to = {75, 0}, stops = { {0, "#00ff88"}, {0.75, "#ff0000"} } },
+    color         = {
+      type="linear", 
+      from = {0, 0}, 
+      to = {setting.width, 0}, 
+      stops = {
+        {0, "#00ff00"}, 
+        {0.25, "#ffff00"},
+        {1, "#ff0000"},
+      } 
+    },
+    
     background_color 	= 'alpha',
---    shape         = gears.shape.powerline,
+    shape         = rect,
 --    bar_shape     = gears.shape.powerline,
-  }
+}
   local swap_text = wibox.widget {
     text   = '50%',
     widget = wibox.widget.textbox,
@@ -44,12 +77,12 @@ local swap_progressbar =  wibox.widget {
   
 local ramgraph_widget = {
   mem = wibox.widget {
-    ram_progressbar,
+    mirror(ram_progressbar),
     ram_text,
     layout = wibox.layout.stack,
   },
   swap = wibox.widget{
-    swap_progressbar,
+    mirror(swap_progressbar),
     swap_text,
     layout = wibox.layout.stack,
   },

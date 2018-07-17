@@ -3,7 +3,7 @@ require('lib.function')
 run_once('/usr/bin/lxpolkit')
 run_once('clipit')
 run_once('gxkb')
-run_once('nm-aplet')
+run_once('nm-applet')
 run_once('thunderbird') -- 6
 run_once('thunar') --7
 run_once('firefox') --4

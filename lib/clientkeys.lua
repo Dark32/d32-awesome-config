@@ -1,23 +1,24 @@
-local awful = require("awful")
-local localize = require("lib.localize")
-local lain = require("lain")
-local markup = lain.util.markup
-local mode_tooltip = require('widget.mode-tooltip')
+local awful       = require("awful")
+local localize    = require("lib.localize")
+local lain        = require("lain")
+local markup      = lain.util.markup
+local mode_widget = require('widget.mode-widget')
  
-local key_resize =mode_tooltip.prepare_key {
+local key_resize = mode_widget.prepare_key {
  {{},'Up',   'Up',    function (c) c:relative_move( 0, 0,  0, -5 ) end },
  {{},'Down', 'Down',  function (c) c:relative_move( 0, 0,  0, 15 ) end },
  {{},'Right','Right', function (c) c:relative_move( 0, 0,  5, 0  ) end },
  {{},'Left', 'Left',  function (c) c:relative_move( 0, 0,  -5, 0 ) end },
 }
-mode_tooltip:create('resize',key_resize, 'Смена размера' )
+mode_widget:create('resize',key_resize, 'Смена размера' )
 
  local function resize2(c)
-  mode_tooltip:grabber('resize', c)
+  mode_widget:grabber('resize', c)
  end
  
  local function float_move2_move (c, pos)
     c.floating = true
+    c.ontop = true
     local position = c:geometry()
     c:geometry({
       x = position.x,
@@ -28,7 +29,7 @@ mode_tooltip:create('resize',key_resize, 'Смена размера' )
     pos(c)
  end
  
-local float_move2_key = mode_tooltip.prepare_key {
+local float_move2_key = mode_widget.prepare_key {
  {{},'q', '⬉',  function (c) float_move2_move(c,awful.placement.top_left      ) end, true },
  {{},'w', '⬆',  function (c) float_move2_move(c,awful.placement.top           ) end, true },
  {{},'e', '⬈',  function (c) float_move2_move(c,awful.placement.top_right     ) end, true },
@@ -40,10 +41,10 @@ local float_move2_key = mode_tooltip.prepare_key {
  {{},'c', '⬊',  function (c) float_move2_move(c,awful.placement.bottom_right  ) end, true },
  
 }
-mode_tooltip:create('float_move',float_move2_key)
+mode_widget:create('float_move',float_move2_key)
 
 local function float_move2(c)
-  mode_tooltip:grabber('float_move', c)
+  mode_widget:grabber('float_move', c)
  end
  
  

@@ -9,8 +9,8 @@ local pulse = lain.widget.pulse {
       if volume_now.muted == "yes" then
             vlevel = "MUTE"
       end
-      widget:set_markup("♪ "..vlevel)
-      widget.forced_width = 45
+      widget:set_markup("🎧 "..vlevel)
+      widget.forced_width = 50
    end
 }
 pulse.widget:buttons(awful.util.table.join(

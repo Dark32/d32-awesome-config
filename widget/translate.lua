@@ -56,15 +56,15 @@ local w = wibox {
 }
 
 w:setup {
-    {
-        {
-            image  = ICON,
-            widget = wibox.widget.imagebox,
-            resize = false
-        },
-        id = 'img',
-        layout = wibox.container.margin(_, 0, 0, 10)
-    },
+--    {
+--        {
+--            image  = ICON,
+--            widget = wibox.widget.imagebox,
+--            resize = false
+--        },
+--        id = 'img',
+--        layout = wibox.container.margin(_, 0, 0, 10)
+--    },
     {
         {
             id = 'header',
@@ -107,7 +107,7 @@ local function translate(to_translate, lang)
         -- calculate height of the widget
         w.height = h1 + h2 + h3 + 20
         -- try to vetrtically align the icon
-        w.left.img:set_top((h1 + h2 + h3 + 20 - 48)/2)
+--        w.left.img:set_top((h1 + h2 + h3 + 20 - 48)/2)
 
         w.visible = true
         w:buttons(

@@ -8,7 +8,7 @@ local appmenu = {
     { "OCS Store",          "ocsstore "},
   }},
   {"Job Programs", {
-    { "phpStorm 162",       "bash -c ~/PhpStorm162.1889.1/bin/phpstorm.sh "},
+    { "phpStorm 162",       "bash -c ~/PhpStorm-162.1889.1/bin/phpstorm.sh "},
     { "pyCharm 5",          "bash -c ~/pycharmcommunity5.0.4/bin/pycharm.sh "},
     { "Gogland 171",        "bash -c ~/Gogland171.3780.106/bin/gogland.sh "},
     { "RubyMine 7",         "bash -c ~/RubyMine7.1.4/bin/rubymine.sh "},

@@ -20,7 +20,7 @@ local rotate = {
       },
       { 
         bg = color.black,
-        fg = color.gray,
+        fg = color.white,
       },
     },
     from = {

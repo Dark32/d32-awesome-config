@@ -4,32 +4,41 @@ local beautiful     = require("beautiful")
 local debug         = require('gears.debug')
 local localize      = require("lib.localize")
 local screencast    = require('lib.screencast2')
-local mode_tooltip  = require('widget.mode-tooltip')
+local mode_widget   = require('widget.mode-widget')
 local add           = awful.key
 local translate     = require("widget.translate")
+local dbus          = require("dbus")
 
 local cnlw = require('widget.caps_num_lock-widget')
 
 local function launch(cmd)
   awful.spawn(string.format(cmd, beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
 end
+
+
 local dmenu = {
   app = [[j4-dmenu-desktop --dmenu='rofi -dmenu -p "launch: " -show run -o 85 -location 2 -lines 16 -width 1200'r]],
   file = 'rofi -show fb -modi fb:~/.config/i3/rofi/rofi-file-browser.sh -o 85 -location 2 -lines 32 -width 1200',
   launch = "rofi -show run -o 85 -location 2 -lines 16 -width 1200"
   }
-local launcher_key = mode_tooltip.prepare_key {
+local launcher_key = mode_widget .prepare_key {
  {{},'a', 'Приложения', function () launch(dmenu.app)     end, true },
  {{},'f', 'Файлы',      function () launch(dmenu.file)    end, true },
  {{},'d', 'Запуск',     function () launch(dmenu.launch)  end, true },
- {{},'z', 'zbstudio',          function () launch('zbstudio')  end, true },
- {{},'t', 'Файловый менеджер', function () launch('thunar')    end, true }, 
- {{},'t', 'Файловый менеджер', function () launch('thunar')    end, true },
+ 
+ {{},'z', 'zbstudio',          function () launch('zbstudio')     end, true },
+ {{},'t', 'Файловый менеджер', function () launch('thunar')       end, true }, 
+ {{},'e', 'Терминал..',        function () launch(terminal)       end, true },
+ {{},'i', 'Сравнить',          function () launch('meld')         end, true },
+ {{},'o', 'Торрент',           function () launch('deluge-gtk ')  end, true },
+ {{},'u', 'DBus',              function () launch('d-feet')  end, true },
+ {{},'r', 'Ranger',            function () launch(terminal..' -e ranger')  end, true },
+ 
  }
-mode_tooltip:create('launcher',launcher_key, 'Быстрый запуск приложений' )
+mode_widget :create('launcher',launcher_key, 'Быстрый запуск приложений' )
 
  local function launcher_app()
-  mode_tooltip:grabber('launcher')
+  mode_widget :grabber('launcher')
  end
  
  
