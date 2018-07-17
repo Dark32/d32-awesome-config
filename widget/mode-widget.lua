@@ -171,7 +171,7 @@ function mode_tooltip:create(mode, keys, description)
     local widgets = { 
       layout  =  wibox.layout.flex.vertical,
       margin (
-        self.config:key_widget(caption_text),
+        self.config:key_widget(self.modes[mode].caption_text),
         self.config.color.white, 0, 0, 0, 1
       ),
     }
@@ -199,6 +199,14 @@ function mode_tooltip:create(mode, keys, description)
     self.modes[mode].widget = wibox_mode
 end
 
+function config:create_key_widget(mode,key)
+  local key_string = ''
+    key_string = self:key_format(key.mods, key.key, key.description)
+    local tmp_str_len = self:len(key.description..key.key..self:jps(key.mods))
+    if tmp_str_len > mode.width then mode.width = tmp_str_len end
+    return self:key_widget(key_string)
+end
+
 function config:mode()
   local mode = {}
   local cfg = self
@@ -217,11 +225,7 @@ function config:mode()
   end
   
   function mode:create_key_widget(key)
-    local key_string = ''
-      key_string = cfg:key_format(key.mods, key.key, key.description)
-      local tmp_str_len = cfg:len(key.description..key.key..cfg:jps(key.mods))
-      if tmp_str_len > self.width then self.width = tmp_str_len end
-      return cfg:key_widget(key_string)
+      return cfg:create_key_widget(self, key)
   end
   
   return mode
