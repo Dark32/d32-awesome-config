@@ -1,11 +1,15 @@
 local awful = require("awful")
 local wibox = require("wibox")
 
-function run_once(cmd)
+function run_once(cmd, app)
   local findme = cmd
-  local firstspace = cmd:find(" ")
-  if firstspace then
-    findme = cmd:sub(0, firstspace-1)
+  if app then
+     findme = app 
+  else    
+    local firstspace = cmd:find(" ")
+    if firstspace then
+      findme = cmd:sub(0, firstspace-1)
+    end
   end
   awful.spawn.with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end

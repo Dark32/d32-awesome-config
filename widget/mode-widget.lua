@@ -245,7 +245,7 @@ function config:mod_eq(mod_mode, mod_pressed)
 end
 
 function config:key_eq(key_mode, key_pressed)
-  return key_mode == (self:en(key_pressed))
+  return key_mode == string.lower(self:en(key_pressed))
 end
 
 

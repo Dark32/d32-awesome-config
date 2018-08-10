@@ -23,7 +23,7 @@ local mytemp = lain.widget.temp({
 
 local net = lain.widget.net({
     settings = function()
-        widget:set_markup(" " .. net_now.received .. " ↓↑ " .. net_now.sent .. " ")
+        widget:set_markup(net_now.received .. " ↓↑ " .. net_now.sent)
         widget.forced_width = 100
     end
 })

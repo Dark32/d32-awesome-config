@@ -15,6 +15,15 @@ local function launch(cmd)
   awful.spawn(string.format(cmd, beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
 end
 
+local function vlc_PP()
+  -- --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+--   dbus.emit_signal(
+--     'session',
+--     '/org/mpris/MediaPlayer2',
+--     'org.mpris.MediaPlayer2.vlc',
+--     ' .PlayPause'
+--   )
+end
 
 local dmenu = {
   app = [[j4-dmenu-desktop --dmenu='rofi -dmenu -p "launch: " -show run -o 85 -location 2 -lines 16 -width 1200'r]],
@@ -27,12 +36,13 @@ local launcher_key = mode_widget .prepare_key {
  {{},'d', 'Запуск',     function () launch(dmenu.launch)  end, true },
  
  {{},'z', 'zbstudio',          function () launch('zbstudio')     end, true },
- {{},'t', 'Файловый менеджер', function () launch('thunar')       end, true }, 
+ {{"Shift"},'t', 'Файловый менеджер', function () launch('thunar')       end, true }, 
  {{},'e', 'Терминал..',        function () launch(terminal)       end, true },
  {{},'i', 'Сравнить',          function () launch('meld')         end, true },
- {{},'o', 'Торрент',           function () launch('deluge-gtk ')  end, true },
+ {{},'t', 'Торрент',           function () launch('deluge-gtk ')  end, true },
  {{},'u', 'DBus',              function () launch('d-feet')  end, true },
  {{},'r', 'Ranger',            function () launch(terminal..' -e ranger')  end, true },
+-- {{},'v', 'VLC Play',          function () vlc_PP() end, true },
  
  }
 mode_widget :create('launcher',launcher_key, 'Быстрый запуск приложений' )

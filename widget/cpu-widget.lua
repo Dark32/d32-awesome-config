@@ -17,7 +17,7 @@ local cpugraph_widget = wibox.widget {
 }
 local cpu_text = wibox.widget {
     text   = '50%',
-    forced_width = 55,
+    forced_width = 60,
     widget = wibox.widget.textbox,
   }
 -- mirros and pushs up a bit

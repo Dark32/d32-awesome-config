@@ -67,6 +67,7 @@ local rule = {
    { rule = { class = "Thunderbird" },  properties = { screen = 1, tag = screen[1].tags[6]} },
    { rule_any = { class = {"Thunar",'thunar'} }, properties = { screen = 1, screen[1].tags[7] } },
    { rule_any = { class = {"TelegramDesktop",'Telegram' }}, properties = { screen = 1, tag = screen[1].tags[5] } },
+   { rule_any = { name = { "htop"}, class = {'htop'}}, properties = { screen = 1, tag = screen[1].tags[3] } },     
    { rule_any = { class = {"brick",'Brick' }}, properties = { screen = 1, tag = screen[1].tags[5] } },   
 --   { rule_any = { class = {"leafpad",'Leafpad' }}, properties = { screen = 1, tag = screen[1].tags[5] } },
 }

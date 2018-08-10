@@ -16,11 +16,13 @@ local appmenu = {
   }},
   {"Programs", {
     { "File Manager",       "thunar "},
-    { "TOR",                "bash c ~/TOR/Browser/starttorbrowser "},
+    { "TOR",                "bash -c ~/TOR/Browser/start-tor-browser "},
   }},
   {"Info", {
-    { "xprop",              terminal .. " e 'bash c xprop;bash'"},
-    { "xwininfo",           terminal .. " e 'bash c xwininfo;bash'"}, 
+    { "xprop",              terminal .. " -e 'bash -c xprop;bash'"},
+    { "xwininfo",           terminal .. " -e 'bash -c xwininfo;bash'"}, 
+    { 'cups',              'xdg-open http://127.0.0.1:631/'},
+    { 'scan',              'xsane'},
   }},
   {"Edit", {
     { "Edit menu",          "leafpad ~/.config/awesome/lib/appmenu.lua"}, 
