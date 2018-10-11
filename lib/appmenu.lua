@@ -9,7 +9,7 @@ local appmenu = {
   }},
   {"Job Programs", {
     { "phpStorm 162",       "bash -c ~/PhpStorm-162.1889.1/bin/phpstorm.sh "},
-    { "pyCharm 5",          "bash -c ~/pycharmcommunity5.0.4/bin/pycharm.sh "},
+    { "pyCharm 5",          "bash -c ~/pycharmcommunity/bin/pycharm.sh "},
     { "Gogland 171",        "bash -c ~/Gogland171.3780.106/bin/gogland.sh "},
     { "RubyMine 7",         "bash -c ~/RubyMine7.1.4/bin/rubymine.sh "},
     { "CLion",              "bash -c ~/clion2017.2.3/bin/clion.sh "},

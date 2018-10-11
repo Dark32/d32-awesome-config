@@ -245,7 +245,7 @@ function config:mod_eq(mod_mode, mod_pressed)
 end
 
 function config:key_eq(key_mode, key_pressed)
-  return key_mode == string.lower(self:en(key_pressed))
+  return string.lower(key_mode) == string.lower(self:en(key_pressed))
 end
 
 
@@ -277,6 +277,9 @@ function mode_tooltip:grabber(index_mode, c)
       local mods = self.config:mod_eq(keys.mods, mod)
       if mods then 
         local _key = self.config:key_eq(keys.key,key )
+        dump(keys.key)
+        dump(key)
+        dump(_key)
         if _key then
           key_mode = keys
             pcall(function() 

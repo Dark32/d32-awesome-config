@@ -7,7 +7,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local autofocus = require("awful.autofocus")
 local lain = require("lain")
 require("lib.function")
-require('run')
+-- require('run')
 -------------------------------------------------------------------------------
 --Константы
 -------------------------------------------------------------------------------
@@ -335,8 +335,3 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 --tag.connect_signal("property::urgent", function(c) awful.client.urgent.jumpto(c) end)
 
-
- 
--- }}}
-
---local name = require("themes."..theme_name..".rc")
