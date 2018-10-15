@@ -3,7 +3,7 @@ local localize    = require("lib.localize")
 local lain        = require("lain")
 local markup      = lain.util.markup
 local mode_widget = require('widget.mode-widget') 
-local debug     = require('gears.debug')
+local debug       = require('gears.debug')
 local dump        = debug.dump
 
 local key_resize = mode_widget.prepare_key {

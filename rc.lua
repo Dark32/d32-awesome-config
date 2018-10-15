@@ -7,7 +7,8 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local autofocus = require("awful.autofocus")
 local lain = require("lain")
 require("lib.function")
--- require('run')
+local context_menu = require("lib.client_menu")
+require('run')
 -------------------------------------------------------------------------------
 --Константы
 -------------------------------------------------------------------------------
@@ -159,7 +160,14 @@ local tasklist_buttons = awful.util.table.join(
         c:raise()
       end
     end),
-  awful.button({ }, 3, client_menu_toggle_fn())
+  awful.button({ }, 3, function (c)
+          if instance_context_menu and instance_context_menu.wibox.visible then
+              instance_context_menu:hide()
+              instance_context_menu = nil
+           else
+              instance_context_menu = context_menu(c)
+           end
+         end )
   )
 
 local function set_wallpaper(s)

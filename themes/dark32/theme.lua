@@ -117,13 +117,13 @@ theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png" -- cascade.til
 theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
 theme.layout_centerworkh = theme.lain_icons .. "centerworkhw.png" -- centerwork.horizontal
 
---theme.tasklist_sticky               = "▪"
---theme.tasklist_ontop                = '⌃'
---theme.tasklist_above                = '▴'
---theme.tasklist_below                = '▾'
---theme.tasklist_floating             = '✈'
---theme.tasklist_maximized            = '<b>+</b>'
---theme.tasklist_maximized_horizontal = '⬌'
---theme.tasklist_maximized_vertical   = '⬍'
+theme.tasklist_sticky               = "▪"
+theme.tasklist_ontop                = '⌃'
+theme.tasklist_above                = '▴'
+theme.tasklist_below                = '▾'
+theme.tasklist_floating             = '✈'
+theme.tasklist_maximized            = '<b>+</b>'
+theme.tasklist_maximized_horizontal = '⬌'
+theme.tasklist_maximized_vertical   = '⬍'
 
 return theme
