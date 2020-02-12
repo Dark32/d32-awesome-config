@@ -6,10 +6,11 @@ local color =require('lib.colors')
 local rot_bg =require('lib.rotate_bg')
 
 local ram_widget = require('widget.ram-widget')
+local temp_widget = require('widget.temp-widget')
 local cpu_widget = require('widget.cpu-widget')
 local iface_widget = require('widget.iface-widget')
 local pulse_widget = require('widget.pulse-widget')
-local bat_widget = require('widget.bat-widget')
+--local bat_widget = require('widget.bat-widget')
 local record_widget = require('lib.screencast2').widget
 local caps_num_lock_widget = require('widget.caps_num_lock-widget')
 
@@ -90,14 +91,15 @@ return function(s)
       rot_bg:rarrow(),
       rot_bg:bg(cpu_widget),
       rot_bg:rarrow(),
-      rot_bg:bg(mytemp),      
+      rot_bg:bg(temp_widget),  
+     
       rot_bg:rarrow(), 
       rot_bg:bg(ram_widget.mem),
       rot_bg:rarrow(),
       rot_bg:bg(ram_widget.swap),
       rot_bg:rarrow(),
-      rot_bg:bg(bat_widget),   
-      rot_bg:rarrow(),
+--      rot_bg:bg(bat_widget),   
+--      rot_bg:rarrow(),
       rot_bg:bg(mytextclock),  
       rarrow(rot_bg.color.from.bg, color.alpha),
       rot_bg:bg(record_widget,color.red, color.black),

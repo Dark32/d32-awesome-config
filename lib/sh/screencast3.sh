@@ -24,13 +24,13 @@ if [ -s $PIDFILE ] && [ -d "/proc/$(cat $PIDFILE)" ]; then
     mv ${OUTFILE} ${FINALFILE}
     rm $PROCESS
     notify-send 'Закончилась обработка записаного gif'
-else
-    
+else    
     read -r X Y W H G ID < <(slop -f "%x %y %w %h %g %i")
     sleep 2
-    rm -f ${OUTFILE}
     # let the recording process take over this pid
-    if [ -n $W ] && [ $W != 0 ]; then
+    if [ -n "$W" ] && [ "$W" != 0 ]; then
+      echo 111
+      rm -f ${OUTFILE}
       # write to the pidfile
       echo $$ > $PIDFILE
       exec ffmpeg \

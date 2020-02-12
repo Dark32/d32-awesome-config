@@ -5,8 +5,8 @@ local naughty = require("naughty")
 local watch = require("awful.widget.watch")
 
 local net = wibox.widget.textbox()
-net.forced_width = 75
-local iface = 'wlp2s0'
+net.forced_width = 90
+local iface = 'enp39s0'
 
 local status_update = "cat /sys/class/net/"..iface.."/operstate"
 --        down = if stdout == 'up' then false else true end

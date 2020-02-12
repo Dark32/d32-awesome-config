@@ -7,7 +7,6 @@ local screencast    = require('lib.screencast2')
 local mode_widget   = require('widget.mode-widget')
 local add           = awful.key
 local translate     = require("widget.translate")
-local dbus          = require("dbus")
 
 local cnlw = require('widget.caps_num_lock-widget')
 
