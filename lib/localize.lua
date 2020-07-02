@@ -42,10 +42,10 @@ local localize = {
     tag_gaps_plus       = {description = "Добавит бесполезные gaps",          group = group.tag},
     tag_gaps_minus      = {description = "Убавить бесполезные gaps",          group = group.tag},
     launcher_dmenu      = {description = "Показать dmenu",                    group = group.launcher},
-    tag_view        = function(i) return {description = "Показать tag #"..i,                group = group.tag} end,
-    tag_toggle      = function(i) return {description = "Переключить tag #" .. i,           group = group.tag} end,
-    tag_client_move = function(i) return {description = "Переместить клиент на tag #"..i,   group = group.tag} end,
-    tag_focused     = function(i) return {description = "Переключить клиент в tag #" .. i,  group = group.tag} end,
+    tag_view            = function(i) return {description = "Показать tag #"..i,                group = group.tag} end,
+    tag_toggle          = function(i) return {description = "Переключить tag #" .. i,           group = group.tag} end,
+    tag_client_move     = function(i) return {description = "Переместить клиент на tag #"..i,   group = group.tag} end,
+    tag_focused         = function(i) return {description = "Переключить клиент в tag #" .. i,  group = group.tag} end,
     quaqe              = {description = "Показать консоль",                    group = group.launcher},
     layout_set_tile    = {description = "Слой столбцами",                      group = group.layout},
     layout_set_max     = {description = "Слой вкладками",                      group = group.layout},
@@ -66,7 +66,7 @@ local localize = {
     move_up         = {description = "Move Up",                       group = group.float},
     move_left       = {description = "Move Left",                     group = group.float},
     move_right      = {description = "Move Right",                    group = group.float},
-    resize          = {description = "Resaze",                        group = group.float},
+    resize          = {description = "Resize",                        group = group.float},
     clien_float_r   = {description = "Быстро и плавать",              group = group.float},
     }
 }

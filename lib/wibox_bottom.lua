@@ -14,7 +14,9 @@ local pulse_widget = require('widget.pulse-widget')
 local record_widget = require('lib.screencast2').widget
 local caps_num_lock_widget = require('widget.caps_num_lock-widget')
 
-local mytextclock = wibox.widget.textclock('%F %a %H:%M')
+local date_time = wibox.widget.textclock('%F %a %H:%M')
+local IZSclock = wibox.widget.textclock(' (%H:%M IZH)',60, '+4')
+
 local mytemp = lain.widget.temp({
     settings = function() 
       widget:set_text('+'..coretemp_now..'°C') 
@@ -28,15 +30,19 @@ local net = lain.widget.net({
         widget.forced_width = 100
     end
 })
-lain.widget.calendar({
-    attach_to = {mytextclock },
-    notification_preset = {
-        font = "Monospace 10",
-        fg   = color.white,
-        bg   = color.dark_gray
-    },
-    cal = "bash -c 'cal  | sed -r -e \"s/_\\x08//g\"'"
-})
+
+local mytextclock = wibox.widget.textclock()
+local month_calendar = awful.widget.calendar_popup.year({
+    spacing=0,
+    long_weekdays = true,
+    margin = 0,
+    style_month = { 
+      border_color = '#aaaaaaaa',
+      border_width = 1,      
+      }
+    }
+)
+month_calendar:attach( date_time, "tr" )
 
 local separators = lain.util.separators
 local markup = lain.util.markup
@@ -100,7 +106,7 @@ return function(s)
       rot_bg:rarrow(),
 --      rot_bg:bg(bat_widget),   
 --      rot_bg:rarrow(),
-      rot_bg:bg(mytextclock),  
+      rot_bg:bg({ layout = wibox.layout.fixed.horizontal, date_time, IZSclock} ),  
       rarrow(rot_bg.color.from.bg, color.alpha),
       rot_bg:bg(record_widget,color.red, color.black),
 --       bg(mykeyboardlayout,color.alpha,color.black),   

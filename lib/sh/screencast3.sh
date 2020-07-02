@@ -3,7 +3,7 @@
 PIDFILE="${HOME}/.screencast.pid"
 PROCESS="${HOME}/.screencast.process" 
 
-OUTFILE="/tmp/out.avi"
+OUTFILE="/tmp/out.mkv"
 FINALFILE="${HOME}/Videos/ScreenCasts/screencast--$(date +'%Y-%m-%d--%H-%M-%S').mkv"
 PALITRE='/tmp/screenpal.png'
 GIFFILE="${HOME}/Videos/ScreenCasts/screencast--$(date +'%Y-%m-%d--%H-%M-%S').gif"
@@ -26,18 +26,14 @@ if [ -s $PIDFILE ] && [ -d "/proc/$(cat $PIDFILE)" ]; then
     notify-send 'Закончилась обработка записаного gif'
 else    
     read -r X Y W H G ID < <(slop -f "%x %y %w %h %g %i")
-    sleep 2
+#    sleep 2
     # let the recording process take over this pid
     if [ -n "$W" ] && [ "$W" != 0 ]; then
-      echo 111
       rm -f ${OUTFILE}
       # write to the pidfile
       echo $$ > $PIDFILE
+      notify-send 'Началась запись'
       exec ffmpeg \
-        -f alsa \
-        -i default \
-        -ac 2 \
-        -acodec vorbis \
         -f x11grab \
         -r 25 \
         -s "$W"x"$H" \

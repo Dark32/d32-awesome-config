@@ -12,3 +12,4 @@ run_once('blueman-applet')
 run_once('~/Telegram/Telegram') -- 5
 run_once('~/brick/build/brick/Release/bin/brick')
 run_once('x-terminal-emulator -name htop -e htop', 'htop')
+run_once("xinput --set-prop 'MOSART Semi. 2.4G Keyboard Mouse Mouse' 'libinput Accel Speed' 1")
